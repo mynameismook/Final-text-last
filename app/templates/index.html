@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Meal Advisor 🍽️</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+    <style>
+        :root {
+            --primary: #ff7e5f;
+            --primary-dark: #eb6753;
+            --secondary: #feb47b;
+            --light: #ffecd2;
+            --dark: #333;
+            --white: #fff;
+            --gray: #f5f5f5;
+        }
+
+        body {
+            font-family: 'Kanit', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, var(--light) 0%, var(--secondary) 100%);
+            margin: 0;
+            padding: 0;
+            color: var(--dark);
+            min-height: 100vh;
+        }
+
+        .header {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 15px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin: 0;
+            padding: 10px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            padding: 30px;
+            overflow: hidden;
+        }
+
+        .actions {
+            display: flex;
+            gap: 15px;
+            flex-direction: column;
+            margin-bottom: 25px;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        input[type="text"] {
+            padding: 12px 15px;
+            font-size: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            flex-grow: 1;
+            transition: all 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 126, 95, 0.3);
+            outline: none;
+        }
+
+        button {
+            padding: 12px 20px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            background-color: var(--primary);
+            color: white;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .random-btn {
+            background-color: var(--secondary);
+        }
+
+        .random-btn:hover {
+            background-color: #f7a662;
+        }
+
+        #result {
+            background-color: var(--gray);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            font-size: 1.1rem;
+            transition: all 0.5s;
+            border-left: 5px solid var(--primary);
+        }
+
+        .label {
+            font-weight: bold;
+            color: var(--primary);
+            margin-right: 5px;
+        }
+
+        #map {
+            height: 300px;
+            margin: 20px 0;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        #map:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .tabs {
+            display: flex;
+            margin: 20px 0;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            border-bottom-color: var(--primary);
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px 0;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .comment-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+        .comment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .comment-form textarea {
+            padding: 12px 15px;
+            font-size: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            min-height: 80px;
+            resize: vertical;
+            transition: all 0.3s;
+        }
+
+        .comment-form textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 126, 95, 0.3);
+            outline: none;
+        }
+
+        .comment-item {
+            background-color: var(--gray);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .comment-name {
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .comment-date {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .comment-text {
+            margin-bottom: 10px;
+        }
+
+        .comment-sentiment {
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            display: inline-block;
+        }
+
+        .sentiment-positive {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .sentiment-negative {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .sentiment-neutral {
+            background-color: #e2e3e5;
+            color: #383d41;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 126, 95, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .pulsate {
+            animation: pulsate 1.5s infinite alternate;
+        }
+
+        @keyframes pulsate {
+            from {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            to {
+                transform: scale(1.05);
+                opacity: 0.8;
+            }
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: var(--dark);
+            color: var(--white);
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .floating-emojis {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+        }
+
+        .emoji {
+            position: absolute;
+            font-size: 30px;
+            user-select: none;
+            animation: floatUp 3s ease-out forwards;
+        }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-100vh) rotate(360deg);
+            }
+        }
+
+        .nutrition-info {
+            background-color: #f9f9f9;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .nutrition-info h3 {
+            margin-top: 0;
+            color: var(--primary-dark);
+            border-bottom: 1px dashed #ddd;
+            padding-bottom: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 20px;
+                border-radius: 15px;
+            }
+
+            .search-container {
+                flex-direction: column;
+            }
+
+            .tabs {
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+    </style>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+</head>
+
+<body>
+    <div class="header">
+        <h1 class="animate__animated animate__fadeIn">🍜 AI Meal Advisor</h1>
+    </div>
+
+    <div class="container animate__animated animate__fadeInUp">
+        <div class="actions">
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="ค้นหาเมนู เช่น ข้าวมันไก่, ส้มตำ, ต้มยำกุ้ง">
+                <button onclick="searchFood()"><i class="fas fa-search"></i> ค้นหาเมนู</button>
+            </div>
+            <button class="random-btn" onclick="getRandomFood()"><i class="fas fa-dice"></i> สุ่มเมนูให้หน่อย</button>
+        </div>
+
+        <div id="result">✨ กรุณาค้นหาเมนูที่ต้องการ หรือ กดปุ่มสุ่มเมนู</div>
+
+        <div id="food-details" style="display:none;">
+            <div class="nutrition-info">
+                <h3>คุณค่าทางโภชนาการโดยประมาณ</h3>
+                <div><span class="label">แคลอรี่:</span> <span id="calories">-</span> kcal</div>
+                <div><span class="label">โปรตีน:</span> <span id="protein">-</span> g</div>
+                <div><span class="label">คาร์โบไฮเดรต:</span> <span id="carbs">-</span> g</div>
+                <div><span class="label">ไขมัน:</span> <span id="fat">-</span> g</div>
+            </div>
+        </div>
+
+        <div id="map" style="height:300px; margin-top:20px;"></div>
+    </div>
+    <!-- เพิ่มใน container -->
+    <div class="comment-section">
+        <h2>คอมเมนต์เกี่ยวกับเมนูนี้</h2>
+    
+        <!-- Comment Form -->
+        <div class="comment-form">
+            <textarea id="commentInput" placeholder="เขียนคอมเมนต์ของคุณที่นี่..." rows="4"></textarea>
+            <button onclick="submitComment()">โพสต์คอมเมนต์</button>
+            <p id="commentResponse"></p>
+        </div>
+    
+        <!-- Display Comments -->
+        <div id="commentsList">
+            <!-- Comments will be appended here -->
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+    <script>
+        let foods = [];
+
+            // โหลดข้อมูลจาก food_data.json
+            fetch('food_data.json')
+                .then(response => response.json())
+                .then(data => {
+                    foods = data.foods; // เก็บข้อมูลเมนูในตัวแปร foods
+                })
+                .catch(error => {
+                    console.error('Error loading the food data:', error);
+                });
+
+            function searchFood() {
+                const searchInput = document.getElementById('searchInput').value.toLowerCase();
+                const foundFood = foods.filter(food => food.name.toLowerCase().includes(searchInput));
+
+                const resultDiv = document.getElementById('result');
+                const foodDetailsDiv = document.getElementById('food-details');
+
+                if (foundFood.length > 0) {
+                    const food = foundFood[0];
+                    resultDiv.innerHTML = `
+                    <h2>${food.name}</h2>
+                    <p>${food.description}</p>
+                    <img src="${food.image_url}" alt="${food.name}" width="200">
+                `;
+                    foodDetailsDiv.style.display = 'block'; // แสดงรายละเอียดโภชนาการ
+                    document.getElementById('calories').textContent = food.calories;
+                    document.getElementById('protein').textContent = food.protein;
+                    document.getElementById('carbs').textContent = food.carbs;
+                    document.getElementById('fat').textContent = food.fat;
+                } else {
+                    resultDiv.innerHTML = "ไม่พบเมนูที่ค้นหา";
+                    foodDetailsDiv.style.display = 'none'; // ซ่อนรายละเอียดโภชนาการ
+                }
+            }
+
+            function getRandomFood() {
+                const randomIndex = Math.floor(Math.random() * foods.length);
+                const randomFood = foods[randomIndex];
+
+                const resultDiv = document.getElementById('result');
+                const foodDetailsDiv = document.getElementById('food-details');
+
+                resultDiv.innerHTML = `
+                <h2>${randomFood.name}</h2>
+                <p>${randomFood.description}</p>
+                <img src="${randomFood.image_url}" alt="${randomFood.name}" width="200">
+            `;
+                foodDetailsDiv.style.display = 'block'; // แสดงรายละเอียดโภชนาการ
+                document.getElementById('calories').textContent = randomFood.calories;
+                document.getElementById('protein').textContent = randomFood.protein;
+                document.getElementById('carbs').textContent = randomFood.carbs;
+                document.getElementById('fat').textContent = randomFood.fat;
+            }
+        let map, marker;
+
+        function initMap(lat = 13.736717, lng = 100.523186) {
+            if (!map) {
+                map = L.map('map').setView([lat, lng], 13);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap contributors'
+                }).addTo(map);
+            } else {
+                map.setView([lat, lng], 13);
+            }
+
+            if (marker) {
+                marker.setLatLng([lat, lng]);
+            } else {
+                marker = L.marker([lat, lng]).addTo(map);
+            }
+        }
+
+        async function getRandomFood() {
+            showLoading();
+            try {
+                const response = await fetch('/api/random');
+                const food = await response.json();
+                renderFood(food);
+            } catch (error) {
+                document.getElementById('result').innerHTML = "เกิดข้อผิดพลาดในการดึงข้อมูล";
+                console.error(error);
+            }
+        }
+
+        async function searchFood() {
+            const query = document.getElementById('searchInput').value.trim();
+            if (!query) {
+                document.getElementById('result').innerHTML = "⚠️ กรุณาใส่ชื่อเมนูที่ต้องการค้นหา";
+                return;
+            }
+
+            showLoading();
+            try {
+                const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+                if (!response.ok) {
+                    throw new Error("ไม่สามารถค้นหาเมนูได้");
+                }
+                const food = await response.json();
+                if (!food) {
+                    document.getElementById('result').innerHTML = "❌ ไม่พบเมนูที่ค้นหา";
+                    document.getElementById('food-details').style.display = 'none';
+                    return;
+                }
+                renderFood(food);
+            } catch (error) {
+                document.getElementById('result').innerHTML = "❌ เกิดข้อผิดพลาดในการค้นหา";
+                console.error(error);
+            }
+        }
+
+        function renderFood(food) {
+            const { name, eng_name, description, calories, protein, carbs, fat, location } = food;
+            document.getElementById('result').innerHTML = `
+                <h2>${name} <small style="color:gray">(${eng_name})</small></h2>
+                <p>${description}</p>
+            `;
+
+            document.getElementById('calories').textContent = calories;
+            document.getElementById('protein').textContent = protein;
+            document.getElementById('carbs').textContent = carbs;
+            document.getElementById('fat').textContent = fat;
+            document.getElementById('food-details').style.display = 'block';
+
+            if (location && location.latitude && location.longitude) {
+                initMap(location.latitude, location.longitude);
+            }
+        }
+
+        function showLoading() {
+            document.getElementById('result').innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>กำลังโหลดข้อมูล...</p>
+                </div>
+            `;
+            document.getElementById('food-details').style.display = 'none';
+        }
+
+        // ✅ ฟังก์ชันโพสต์คอมเมนต์
+        async function submitComment() {
+            const comment = document.getElementById('commentInput').value.trim();
+            const responseElement = document.getElementById('commentResponse');
+
+            if (!comment) {
+                responseElement.textContent = "⚠️ กรุณากรอกคอมเมนต์ก่อนโพสต์";
+                return;
+            }
+
+            try {
+                const res = await fetch('/comment', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ comment })
+                });
+                const result = await res.json();
+
+                if (res.ok) {
+                    responseElement.textContent = `✅ โพสต์สำเร็จ: (${result.data.sentiment})`;
+                    document.getElementById('commentInput').value = '';
+                    loadComments();
+                } else {
+                    responseElement.textContent = `❌ ${result.error}`;
+                }
+            } catch (err) {
+                console.error(err);
+                responseElement.textContent = "❌ เกิดข้อผิดพลาด";
+            }
+        }
+
+        // ✅ โหลดคอมเมนต์ทั้งหมด
+        async function loadComments() {
+            try {
+                const res = await fetch('/comments');
+                const data = await res.json();
+                const list = document.getElementById('commentsList');
+                list.innerHTML = '';
+
+                if (data.length === 0) {
+                    list.innerHTML = "<p>ยังไม่มีคอมเมนต์</p>";
+                    return;
+                }
+
+                data.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'comment-item';
+                    div.innerHTML = `<p>${item.text}</p><small>ความรู้สึก: ${item.sentiment}</small>`;
+                    list.appendChild(div);
+                });
+            } catch (err) {
+                console.error("โหลดคอมเมนต์ล้มเหลว", err);
+            }
+        }
+
+        // โหลดคอมเมนต์ตอนเปิดหน้า
+        window.onload = loadComments;
+    </script>
+    </body>
+    
+    </html>

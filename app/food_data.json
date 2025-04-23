@@ -1,0 +1,304 @@
+{
+  "foods": [
+    {
+      "name": "ข้าวมันไก่",
+      "eng_name": "Khao Man Gai (Chicken Rice)",
+      "cuisine": "อาหารจานเดียว",
+      "calories": 550,
+      "protein": 25,
+      "carbs": 65,
+      "fat": 15,
+      "location": {
+        "latitude": 13.741,
+        "longitude": 100.548
+      },
+      "description": "ข้าวหุงกับน้ำมันและน้ำสต๊อกไก่ เสิร์ฟพร้อมกับไก่ต้มและน้ำจิ้มรสเข้มข้น",
+      "image_url": "khao_man_gai.jpg"
+    },
+    {
+      "name": "ผัดไทย",
+      "eng_name": "Pad Thai",
+      "cuisine": "อาหารจานเดียว",
+      "calories": 480,
+      "protein": 18,
+      "carbs": 60,
+      "fat": 18,
+      "location": {
+        "latitude": 13.751,
+        "longitude": 100.501
+      },
+      "description": "ก๋วยเตี๋ยวผัดกับไข่ เต้าหู้ ถั่วงอก และกุ้ง คลุกเคล้ากับซอสผัดไทยรสหวานเปรี้ยว",
+      "image_url": "pad_thai.jpg"
+    },
+    {
+      "name": "ต้มยำกุ้ง",
+      "eng_name": "Tom Yum Goong",
+      "cuisine": "อาหารตามสั่ง",
+      "calories": 320,
+      "protein": 22,
+      "carbs": 15,
+      "fat": 10,
+      "location": {
+        "latitude": 13.732,
+        "longitude": 100.523
+      },
+      "description": "ต้มยำกุ้งแม่น้ำรสจัด เปรี้ยว เผ็ด หอมสมุนไพร",
+      "image_url": "tom_yum_goong.jpg"
+    },
+    {
+      "name": "ส้มตำไทย",
+      "eng_name": "Som Tam Thai",
+      "cuisine": "อาหารอีสาน",
+      "calories": 250,
+      "protein": 12,
+      "carbs": 28,
+      "fat": 8,
+      "location": {
+        "latitude": 13.745,
+        "longitude": 100.533
+      },
+      "description": "ตำมะละกอกับมะเขือเทศ ถั่วฝักยาว ถั่วลิสง ปรุงรสเปรี้ยวหวานเผ็ด",
+      "image_url": "som_tam.jpg"
+    },
+    {
+      "name": "แกงเขียวหวาน",
+      "eng_name": "Green Curry",
+      "cuisine": "อาหารตามสั่ง",
+      "calories": 450,
+      "protein": 20,
+      "carbs": 20,
+      "fat": 30,
+      "location": {
+        "latitude": 13.756,
+        "longitude": 100.502
+      },
+      "description": "แกงเขียวหวานไก่ เนื้อนุ่ม น้ำแกงข้น หอมใบโหระพา",
+      "image_url": "green_curry.jpg"
+    },
+    {
+      "name": "ข้าวผัดกระเพราไก่",
+      "eng_name": "Pad Kra Pao Gai",
+      "cuisine": "อาหารตามสั่ง",
+      "calories": 520,
+      "protein": 25,
+      "carbs": 45,
+      "fat": 22,
+      "location": {
+        "latitude": 13.749,
+        "longitude": 100.541
+      },
+      "description": "ข้าวผัดกับไก่สับผัดกับใบกระเพรา พริก กระเทียม รสชาติเผ็ดร้อน",
+      "image_url": "pad_krapao_gai.jpg"
+    },
+    {
+      "name": "ข้าวผัด",
+      "eng_name": "Fried Rice",
+      "cuisine": "อาหารจานเดียว",
+      "calories": 490,
+      "protein": 15,
+      "carbs": 65,
+      "fat": 15,
+      "location": {
+        "latitude": 13.758,
+        "longitude": 100.505
+      },
+      "description": "ข้าวผัดกับไข่ เนื้อสัตว์ และผัก ปรุงรสด้วยซอสถั่วเหลืองและพริกไทย",
+      "image_url": "fried_rice.jpg"
+    },
+    {
+      "name": "ผัดซีอิ๊ว",
+      "eng_name": "Pad See Ew",
+      "cuisine": "อาหารจานเดียว",
+      "calories": 510,
+      "protein": 20,
+      "carbs": 65,
+      "fat": 18,
+      "location": {
+        "latitude": 13.742,
+        "longitude": 100.530
+      },
+      "description": "ก๋วยเตี๋ยวเส้นใหญ่ผัดกับไข่ เนื้อสัตว์ และผักคะน้า ปรุงรสด้วยซีอิ๊วดำ",
+      "image_url": "pad_see_ew.jpg"
+    },
+    {
+      "name": "ขนมจีนน้ำยา",
+      "eng_name": "Kanom Jeen Nam Ya",
+      "cuisine": "อาหารไทยภาคใต้",
+      "calories": 380,
+      "protein": 18,
+      "carbs": 50,
+      "fat": 10,
+      "location": {
+        "latitude": 13.747,
+        "longitude": 100.520
+      },
+      "description": "เส้นขนมจีนราดด้วยน้ำยาปลา หรือน้ำยากะทิ เสิร์ฟพร้อมผักสดนานาชนิด",
+      "image_url": "kanom_jeen.jpg"
+    },
+    {
+      "name": "ก๋วยเตี๋ยวต้มยำ",
+      "eng_name": "Tom Yum Noodles",
+      "cuisine": "อาหารจานเดียว",
+      "calories": 410,
+      "protein": 22,
+      "carbs": 55,
+      "fat": 12,
+      "location": {
+        "latitude": 13.738,
+        "longitude": 100.531
+      },
+      "description": "ก๋วยเตี๋ยวน้ำซุปรสต้มยำ เผ็ด เปรี้ยว หอมสมุนไพร ใส่เนื้อสัตว์และผัก",
+      "image_url": "tom_yum_noodles.jpg"
+    },
+    {
+      "name": "ข้าวแกงเขียวหวาน",
+      "eng_name": "Green Curry with Rice",
+      "cuisine": "อาหารตามสั่ง",
+      "calories": 600,
+      "protein": 25,
+      "carbs": 70,
+      "fat": 28,
+      "location": {
+        "latitude": 13.755,
+        "longitude": 100.513
+      },
+      "description": "ข้าวสวยเสิร์ฟพร้อมแกงเขียวหวานไก่ หรือเนื้อ รสชาติเผ็ดร้อน หอมใบโหระพา",
+      "image_url": "green_curry_rice.jpg"
+    },
+    {
+      "name": "สุกี้",
+      "eng_name": "Suki",
+      "cuisine": "อาหารจานเดียว",
+      "calories": 550,
+      "protein": 18,
+      "carbs": 65,
+      "fat": 22,
+      "location": {
+        "latitude": 13.748,
+        "longitude": 100.510
+      },
+      "description": "สุกี้ก๋วยเตี๋ยวผัดเส้น ผัก และเนื้อสัตว์ ปรุงรสด้วยน้ำจิ้มสุกี้รสหวานเปรี้ยว",
+      "image_url": "suki.jpg"
+    },
+    {
+      "name": "ขนมเบื้อง",
+      "eng_name": "Kanom Bueng",
+      "cuisine": "ของหวาน",
+      "calories": 200,
+      "protein": 4,
+      "carbs": 35,
+      "fat": 6,
+      "location": {
+        "latitude": 13.751,
+        "longitude": 100.523
+      },
+      "description": "ขนมหวานกรอบที่ทำจากแป้ง ใส่ครีมมะพร้าวและท็อปปิ้งต่างๆ เช่น ถั่วลิสงหรือครีม",
+      "image_url": "kanom_bueng.jpg"
+    },
+    {
+      "name": "ข้าวต้มปลา",
+      "eng_name": "Fish Congee",
+      "cuisine": "อาหารจานเดียว",
+      "calories": 400,
+      "protein": 25,
+      "carbs": 60,
+      "fat": 8,
+      "location": {
+        "latitude": 13.744,
+        "longitude": 100.537
+      },
+      "description": "ข้าวต้มร้อนๆ ใส่เนื้อปลาหรือกุ้ง พร้อมเครื่องปรุงรสและสมุนไพร",
+      "image_url": "fish_congee.jpg"
+    },
+    {
+      "name": "ยำวุ้นเส้น",
+      "eng_name": "Yum Woon Sen",
+      "cuisine": "อาหารตามสั่ง",
+      "calories": 300,
+      "protein": 18,
+      "carbs": 40,
+      "fat": 10,
+      "location": {
+        "latitude": 13.732,
+        "longitude": 100.523
+      },
+      "description": "ยำวุ้นเส้นใส่เนื้อสัตว์และผักสด คลุกเคล้ากับน้ำยำรสแซ่บ",
+      "image_url": "yum_woon_sen.jpg"
+    },
+    {
+      "name": "ขนมจีบ",
+      "eng_name": "Dim Sum",
+      "cuisine": "อาหารว่าง",
+      "calories": 180,
+      "protein": 12,
+      "carbs": 25,
+      "fat": 6,
+      "location": {
+        "latitude": 13.737,
+        "longitude": 100.530
+      },
+      "description": "ขนมจีบไส้หมูหรือกุ้งนึ่งร้อนๆ รสชาติกลมกล่อม",
+      "image_url": "dim_sum.jpg"
+    },
+    {
+      "name": "หมูกรอบ",
+      "eng_name": "Crispy Pork",
+      "cuisine": "อาหารตามสั่ง",
+      "calories": 700,
+      "protein": 30,
+      "carbs": 45,
+      "fat": 40,
+      "location": {
+        "latitude": 13.749,
+        "longitude": 100.525
+      },
+      "description": "หมูสามชั้นทอดกรอบ เสิร์ฟกับข้าวสวยและน้ำจิ้มรสเปรี้ยวหวาน",
+      "image_url": "crispy_pork.jpg"
+    },
+    {
+      "name": "น้ำตกหมู",
+      "eng_name": "Nam Tok Moo",
+      "cuisine": "อาหารอีสาน",
+      "calories": 350,
+      "protein": 20,
+      "carbs": 10,
+      "fat": 20,
+      "location": {
+        "latitude": 13.753,
+        "longitude": 100.508
+      },
+      "description": "เนื้อหมูย่างสุก หั่นเป็นชิ้น ราดด้วยน้ำตกน้ำปลา ใส่ข้าวคั่วและสมุนไพร",
+      "image_url": "nam_tok_moo.jpg"
+    },
+    {
+      "name": "ข้าวเหนียวมะม่วง",
+      "eng_name": "Mango Sticky Rice",
+      "cuisine": "ของหวาน",
+      "calories": 350,
+      "protein": 4,
+      "carbs": 70,
+      "fat": 10,
+      "location": {
+        "latitude": 13.750,
+        "longitude": 100.510
+      },
+      "description": "ข้าวเหนียวราดมะม่วงสุกและกะทิ หอมหวานอร่อย",
+      "image_url": "mango_sticky_rice.jpg"
+    },
+    {
+      "name": "ข้าวซอย",
+      "eng_name": "Khao Soi",
+      "cuisine": "อาหารเหนือ",
+      "calories": 600,
+      "protein": 25,
+      "carbs": 70,
+      "fat": 25,
+      "location": {
+        "latitude": 13.750,
+        "longitude": 100.501
+      },
+      "description": "ก๋วยเตี๋ยวน้ำกะทิข้น หอมเครื่องแกง ราดด้วยเนื้อไก่ทอดกรอบและข้าวเหนียว",
+      "image_url": "khao_soi.jpg"
+    }
+  ]
+}
